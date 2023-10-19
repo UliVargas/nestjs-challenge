@@ -23,6 +23,10 @@ async function bootstrap() {
     .setTitle('NestJS-Challenge')
     .setDescription('REST API created for the NestJS challenge')
     .setVersion('1.0')
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);

@@ -71,5 +71,9 @@ $ npm run test
 $ npm run test:cov
 ```
 
+### URL of the deployed API documentation: https://nestjs-challenge-dev-bbxd.1.us-1.fl0.io/api/docs
+
+### Postman Collection: https://www.postman.com/altimetry-physicist-43422969/workspace/projects/collection/30299242-54d2cb16-d05f-4a2c-855f-17a59707a193?action=share&creator=30299242
+
 ### NestJS Documentation
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

@@ -30,8 +30,8 @@
 - [x] Create and validate User DTOs
 - [x] Connect Database to persistance
 - [x] Authentication
-- [ ] Swagger Documentation
-- [ ] Tests
+- [x] Swagger Documentation
+- [x] Tests
 
 
 ### Environment Variables

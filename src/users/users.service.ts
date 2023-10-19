@@ -4,14 +4,15 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
+import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
-import { DBErrors } from '../../utils/database-errors';
+import { DBErrors } from '../utils/database-errors';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -44,9 +45,9 @@ export class UsersService {
     return this.userRepository.findOneBy({ id });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    const user = this.findOne(id);
-    return this.userRepository.save({
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.findOne(id);
+    return await this.userRepository.save({
       ...user,
       ...updateUserDto,
     });
@@ -58,11 +59,13 @@ export class UsersService {
     });
   }
 
-  async login(payload: { email: string; password: string }) {
+  async login(payload: LoginUserDto) {
     const user = await this.userRepository.findOneBy({ email: payload.email });
     if (!user) throw new NotFoundException('User not found');
 
-    if (!compare(payload.password, user.password))
+    const isValidUser = await compare(payload.password, user.password);
+
+    if (!isValidUser)
       throw new BadRequestException('email or password invalid');
 
     const token = this.jwtService.sign({

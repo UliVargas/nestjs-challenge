@@ -1,16 +1,20 @@
-FROM node:16 as development
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY tsconfig.json tsconfig.build.json ./
-COPY ./src ./src
-CMD [ "npm", "run", "start:dev" ]
+# Base image
+FROM node:18
 
-# Builder stage
-FROM development as builder
+# Create app directory
 WORKDIR /usr/src/app
-# Build the app with devDependencies still installed from "development" stage
+
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+# Creates a "dist" folder with the production build
 RUN npm run build
-# Clear dependencies and reinstall for production (no devDependencies)
-RUN rm -rf node_modules
-RUN npm ci --only=production
+
+# Start the server using the production build
+CMD [ "node", "dist/main.js" ]

@@ -13,6 +13,7 @@ import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { DBErrors } from '../utils/database-errors';
 import { LoginUserDto } from './dto/login-user.dto';
+import { LoginData } from './interfaces/login.interface';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +24,7 @@ export class UsersService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const hashed = await hash(createUserDto.password, 10);
       const newUser = this.userRepository.create({
@@ -37,11 +38,11 @@ export class UsersService {
     }
   }
 
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  findOne(id: string) {
+  findOne(id: string): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
 
@@ -53,13 +54,13 @@ export class UsersService {
     });
   }
 
-  remove(id: string) {
-    return this.userRepository.delete({
+  async remove(id: string): Promise<void> {
+    await this.userRepository.delete({
       id,
     });
   }
 
-  async login(payload: LoginUserDto) {
+  async login(payload: LoginUserDto): Promise<LoginData> {
     const user = await this.userRepository.findOneBy({ email: payload.email });
     if (!user) throw new NotFoundException('User not found');
 

@@ -4,6 +4,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
+
+console.log('DATABASE_PORT', process.env.DATABASE_PORT);
+
 @Module({
   imports: [
     ConfigModule.forRoot(),

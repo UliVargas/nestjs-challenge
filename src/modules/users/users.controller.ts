@@ -18,16 +18,14 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { LoginData } from './interfaces/login.interface';
-import { User } from './entities/user.entity';
+import { User } from '../../access-data/typeorm/entities/user.entity';
+import { LoginResponse } from './types/login-response';
 
 @ApiTags('Users')
 @ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Auth()
   @ApiCreatedResponse({ type: User })
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
@@ -44,8 +42,8 @@ export class UsersController {
   @Auth()
   @ApiOkResponse({ type: User })
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOne(id);
+  findById(@Param('id') id: string): Promise<User> {
+    return this.usersService.findById(id);
   }
 
   @Auth()
@@ -66,9 +64,15 @@ export class UsersController {
 
   @Post('login')
   @ApiCreatedResponse({
-    type: LoginData,
+    schema: {
+      type: 'object',
+      properties: {
+        access_token: { type: 'string' },
+        refresh_token: { type: 'string' },
+      },
+    },
   })
-  login(@Body() payload: LoginUserDto): Promise<LoginData> {
+  login(@Body() payload: LoginUserDto): Promise<LoginResponse> {
     return this.usersService.login(payload);
   }
 }

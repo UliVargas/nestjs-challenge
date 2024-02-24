@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersController } from '../../src/users/users.controller';
-import { UsersService } from '../../src/users/users.service';
+import { UsersController } from '../../src/modules/users/users.controller';
+import { UsersService } from '../../src/modules/users/users.service';
 import { TestModule } from '../test.module';
-import { AuthModule } from '../../src/auth/auth.module';
+import { AuthModule } from '../../src/modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../../src/users/entities/user.entity';
+import { User } from '../../src/access-data/typeorm/entities/user.entity';
 import { mockService } from '../../test/dependencies';
 import { createUserDto, updateUserDto, user } from '../../test/mock/user.mock';
 import { BadRequestException, NotFoundException } from '@nestjs/common';

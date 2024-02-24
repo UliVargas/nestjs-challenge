@@ -2,15 +2,13 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { User } from '../../../access-data/typeorm/entities/user.entity';
+import { UserRepository } from '../../../repositories/typeorm/user.repository';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userRepository: UserRepository,
     configService: ConfigService,
   ) {
     super({
@@ -21,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any): Promise<User> {
     const { id } = payload;
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findById(id);
     if (!user) throw new UnauthorizedException(`Token no valid`);
 
     return user;

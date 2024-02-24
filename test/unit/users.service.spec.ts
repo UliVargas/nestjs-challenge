@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { UsersService } from '../../src/users/users.service';
-import { User } from '../../src/users/entities/user.entity';
+import { UsersService } from '../../src/modules/users/users.service';
+import { User } from '../../src/access-data/typeorm/entities/user.entity';
 import { mockRepository } from '../../test/dependencies';
 import {
   createUserDto,

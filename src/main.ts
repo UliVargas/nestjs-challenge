@@ -20,8 +20,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS-Challenge')
-    .setDescription('REST API created for the NestJS challenge')
+    .setTitle(configService.get('APP_NAME') ?? 'NestJS API')
     .setVersion('1.0')
     .addSecurity('bearer', {
       type: 'http',

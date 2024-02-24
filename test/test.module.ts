@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../src/users/entities/user.entity';
+import { User } from '../src/access-data/typeorm/entities/user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
+      type: 'sqlite',
       database: ':memory',
       entities: [User],
       synchronize: true,

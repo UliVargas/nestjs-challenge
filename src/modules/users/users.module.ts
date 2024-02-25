@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { AuthModule } from '../auth/auth.module';
-import { userProvider } from '../../access-data/typeorm/typeorm.providers';
+import { userProvider } from '../../access-data/sequelize/sequelize.providers';
 import { UserRepository } from '../../repositories/typeorm/user.repository';
 import { DatabaseModule } from '../../access-data/database.module';
 

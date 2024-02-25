@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../src/access-data/typeorm/entities/user.entity';
+import { User } from '../src/access-data/sequelize/entities/user.entity';
 
 @Module({
   imports: [

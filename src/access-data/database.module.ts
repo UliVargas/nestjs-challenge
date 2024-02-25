@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeORMProvider } from './typeorm/typeorm.providers';
+import { SequelizeProvider } from './sequelize/sequelize.providers';
 
 @Module({
   imports: [ConfigModule.forRoot()],
-  providers: [TypeORMProvider],
-  exports: [TypeORMProvider],
+  providers: [SequelizeProvider],
+  exports: [SequelizeProvider],
 })
 export class DatabaseModule {}

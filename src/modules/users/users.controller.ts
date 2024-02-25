@@ -18,7 +18,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from '../../access-data/typeorm/entities/user.entity';
+import { User } from '../../access-data/sequelize/entities/user.entity';
 import { LoginResponse } from './types/login-response';
 
 @ApiTags('Users')

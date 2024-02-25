@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/access-data/typeorm/entities/user.entity';
+import { User } from 'src/access-data/sequelize/entities/user.entity';
 import { UserRepository } from 'src/repositories/typeorm/user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { DBErrors } from 'src/utils/database-errors';
@@ -43,11 +43,9 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.findById(id);
-    return await this.userRepository.update({
-      ...user,
-      ...updateUserDto,
-    });
+    const user = await this.userRepository.findById(id);
+    if (!user) throw new NotFoundException('User not found');
+    return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: string): Promise<void> {

@@ -6,7 +6,7 @@ export const SequelizeProvider = {
   provide: 'SEQUELIZE_PROVIDER',
   useFactory: async (configService: ConfigService) => {
     const sequelize = new Sequelize({
-      dialect: 'postgres',
+      dialect: 'mysql',
       host: configService.get('DB_HOST'),
       port: +configService.get('DB_PORT'),
       username: configService.get('DB_USERNAME'),

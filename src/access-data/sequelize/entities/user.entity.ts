@@ -15,17 +15,17 @@ export class User extends Model<User> {
   id: string;
 
   @ApiProperty()
-  @Column(DataType.TEXT)
+  @Column(DataType.STRING)
   name: string;
 
   @ApiProperty()
   @Column({
-    type: DataType.TEXT,
+    type: DataType.STRING,
     unique: true,
   })
   email: string;
 
   @ApiProperty()
-  @Column(DataType.TEXT)
+  @Column(DataType.STRING)
   password: string;
 }

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeORMProvider } from './typeorm/typeorm.providers';
+import { mongooseProvider } from './mongoose/mongoose.providers';
 
 @Module({
   imports: [ConfigModule.forRoot()],
-  providers: [TypeORMProvider],
-  exports: [TypeORMProvider],
+  providers: [mongooseProvider],
+  exports: [mongooseProvider],
 })
 export class DatabaseModule {}

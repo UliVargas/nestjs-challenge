@@ -6,12 +6,12 @@ import {
 } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/access-data/typeorm/entities/user.entity';
-import { UserRepository } from 'src/repositories/typeorm/user.repository';
+import { UserRepository } from '../../../src/repositories/mongoose/user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
-import { DBErrors } from 'src/utils/database-errors';
+import { DBErrors } from '../../../src/utils/database-errors';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { User } from '../../../src/access-data/mongoose/schemas/user.schema';
 
 @Injectable()
 export class UsersService {
@@ -42,12 +42,8 @@ export class UsersService {
     return this.userRepository.findById(id);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.findById(id);
-    return await this.userRepository.update({
-      ...user,
-      ...updateUserDto,
-    });
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: string): Promise<void> {

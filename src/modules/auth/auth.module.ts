@@ -3,8 +3,8 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { UserRepository } from '../../repositories/typeorm/user.repository';
-import { userProvider } from '../../access-data/typeorm/typeorm.providers';
+import { UserRepository } from '../../repositories/mongoose/user.repository';
+import { userProvider } from '../../access-data/mongoose/mongoose.providers';
 import { DatabaseModule } from '../../access-data/database.module';
 
 @Module({

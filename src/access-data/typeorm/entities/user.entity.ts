@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -19,9 +20,7 @@ export class User {
   name: string;
 
   @ApiProperty()
-  @Column('text', {
-    unique: true,
-  })
+  @Column('varchar', { length: 255, unique: true })
   email: string;
 
   @ApiProperty()

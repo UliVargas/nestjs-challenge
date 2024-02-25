@@ -6,7 +6,7 @@ export const TypeORMProvider = {
   provide: 'TYPEORM_DATA_SOURCE',
   useFactory: async (configService: ConfigService) => {
     const dataSource = new DataSource({
-      type: configService.get<string>('DB_TYPE') as any,
+      type: 'mysql',
       host: configService.get<string>('DB_HOST'),
       port: +configService.get<number>('DB_PORT'),
       username: configService.get<string>('DB_USERNAME'),
